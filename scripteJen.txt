@@ -23,7 +23,7 @@ if ["$cluster" == "ECS"]; then
 	./../script.sh
 
 	touch ../Projet-aws-ecs-eks/cluster.tf
-	cat new_infra.csv > ../Projet-aws-ecs-eks/cluster.tf
+	cat new_infra.csv > ../Projet-aws-ecs-eks/clusterECS.tf
 	cd ../Projet-aws-ecs-eks
 else
 	#!/bin/bash
