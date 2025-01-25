@@ -17,7 +17,7 @@ terraform apply -auto-approve
 #!/bin/bash
 
 if ["$cluster" == "ECS"]; then
-	echo $nom > infra.csv
+	echo "${cluster};${nom}" > infra.csv
     chmod +x ../script.sh
 	cp -rf ../templates .
 	./../script.sh
