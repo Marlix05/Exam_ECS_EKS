@@ -1,0 +1,35 @@
+#Le projet Projet-aws-kube contient les fichiers nécessaires au déploiement de l'infra
+# + instance (avec deux scripte master et worker: pour déployer le cluste avec master et 2 workers)
+#Ce scripte automatise le déploiement via terraform
+#
+#!/bin/bash
+cp -r ../Projet-aws-kube .
+cd Projet-aws-kube
+terraform init
+terraform apply -auto-approve
+
+
+
+#Ce job jenkins prend deux paramètres dont dont cluster (multi-choix : ECS ou kubernetes) et nom (le nom du cluster si ECS)
+#L'utilisateur fait un choix entre la création d'un cluster ECS ou un kubernetes. 
+#
+#
+#!/bin/bash
+
+if ["$cluster" == "ECS"]; then
+	echo $nom > infra.csv
+    chmod +x ../script.sh
+	cp -rf ../templates .
+	./../script.sh
+
+	touch ../Projet-aws-ecs-eks/cluster.tf
+	cat new_infra.csv > ../Projet-aws-ecs-eks/cluster.tf
+	cd ../Projet-aws-ecs-eks
+else
+	#!/bin/bash
+
+	cp -r ../Projet-aws-kube .
+	cd Projet-aws-kube
+	terraform init
+	terraform apply -auto-approve
+fi
